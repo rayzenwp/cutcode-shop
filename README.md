@@ -1,4 +1,4 @@
-# Instalation
+# Steps creation
 
 - composer install
 - npm install
@@ -11,7 +11,11 @@
 - php artisan telescope:install
 - php artisan migrate
 
-    
+# Instalation
+    - composer install
+    - npm install
+    - php app:install
+
 # Deploy
 
 
