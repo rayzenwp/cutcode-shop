@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Http\Kernel;
-
+use Illuminate\Contracts\Http\Kernel as KernelContract;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //TODO: ?? Model::shouldBeStrict()
+        //!app()->runningInConsole
         Model::preventLazyLoading(!app()->isProduction());
         Model::preventSilentlyDiscardingAttributes(!app()->isProduction());
 
@@ -38,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
                     ->debug('whenQueryingForLongerThan '.$connection->query()->toSql());
         });
 
-        $kernel = app(Kernel::class);
+        $kernel = app(KernelContract::class);
         $kernel->whenRequestLifecycleIsLongerThan(
             CarbonInterval::seconds(4),
             function () {

@@ -47,6 +47,10 @@ class Handler extends ExceptionHandler
             if (app()->bound('sentry')) {
                 app('sentry')->captureException($e);
             }
+            //Comm: тут можно перехватывать абсолютно все ошибки и отправлять куда нужно
+            // logger()
+            // ->channel('telegram')
+            // ->debug('report '.$e->getMessage());
         });
     }
 }
