@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
 // Better use SDK library if need more request to api
+// нужно добавить очередь на Http request
 final class TelegramBotApi
 {
     public const HOST = 'https://api.telegram.org/bot';
@@ -25,8 +26,10 @@ final class TelegramBotApi
             return $status;
 
         } catch (\Throwable $exception) {
-            //throw new Exception('My first Sentry error! '.$exception);
-            //report(new TelegramBotApiException($exception->getMessage()));
+            // throw $exception; //выводит ошибку
+            // throw new Exception('My first Sentry error! '.$exception);
+            // report(new TelegramBotApiException($exception->getMessage())); // не выводит только в лог
+            report($exception);
             return false;
         }
 
