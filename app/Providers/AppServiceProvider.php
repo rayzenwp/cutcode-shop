@@ -18,30 +18,36 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-    public function boot()
+    public function boot(): void
     {
         //!app()->runningInConsole
         Model::shouldBeStrict(!app()->isProduction());
 
-        if (app()->isProduction()) {
-            DB::whenQueryingForLongerThan(CarbonInterval::seconds(5), function (Connection $connection, QueryExecuted $event) {
-                logger()
-                    ->channel('telegram')
-                    ->debug('whenQueryingForLongerThan '.$connection->totalQueryDuration());
-            });
+        if (!app()->isProduction()) {
+            DB::whenQueryingForLongerThan(
+                CarbonInterval::seconds(5), 
+                function (Connection $connection, QueryExecuted $event) {
+                    //если на TelegramBotApi добавляется очередь то тут нужно сделать проверку
+                    // иначе будет вечный цикл
+                    // if ($connection->getName())
+                    // logger($connection->getName());
+                    logger()
+                        ->channel('telegram')
+                        ->debug('whenQueryingForLongerThan '.$connection->totalQueryDuration());
+                }
+            );
     
             // Если внутри функции нет this можно вызывать ее как static function
             DB::listen(static function ($query) {
-                if ($query->time > 1000) {
+                if ($query->time > 100) {
                     //TODO: враппер? что? добавить
                     logger()
                     ->channel('telegram')
-                    ->debug('Query too long '.$query->sql, $query->bindings);
+                    ->debug('Query longer than 1s: '.$query->sql, $query->bindings);
                 }
             });
     
-            $kernel = app(KernelContract::class);
-            $kernel->whenRequestLifecycleIsLongerThan(
+            app(KernelContract::class)->whenRequestLifecycleIsLongerThan(
                 CarbonInterval::seconds(4),
                 function () {
                     logger()

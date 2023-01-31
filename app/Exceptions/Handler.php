@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -52,5 +53,11 @@ class Handler extends ExceptionHandler
             // ->channel('telegram')
             // ->debug('report '.$e->getMessage());
         });
+
+        // так можно менять 404 станицу вью или если апи отправлять свой ответ
+        // $this->renderable(function (NotFoundHttpException $e) {
+        //    return response()
+        //         ->view('welcome');
+        // });
     }
 }

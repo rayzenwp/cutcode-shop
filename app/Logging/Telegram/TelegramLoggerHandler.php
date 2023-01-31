@@ -11,7 +11,7 @@ use Monolog\Handler\AbstractProcessingHandler;
 final class TelegramLoggerHandler extends AbstractProcessingHandler
 {
     protected int $chatId;
-    protected  string $token;
+    protected string $token;
 
     public function __construct(array $config)
     {
@@ -19,15 +19,13 @@ final class TelegramLoggerHandler extends AbstractProcessingHandler
 
         parent::__construct($level);
 
-        $this->chatId = $config['chat_id'];
-        $this->token = $config['token'];
-
+        $this->chatId = (int) $config['chat_id'];
+        $this->token = (string) $config['token'];
     }
 
     protected function write(array $record): void
     {
         TelegramBotApi::sendMessage($this->token, $this->chatId, $record['formatted']);
-
 	}
 
 }

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Telegram;
 
+use App\Services\Telegram\Exceptions\TelegramBotApiException;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 // Better use SDK library if need more request to api
 // нужно добавить очередь на Http request
@@ -25,11 +27,8 @@ final class TelegramBotApi
 
             return $status;
 
-        } catch (\Throwable $exception) {
-            // throw $exception; //выводит ошибку
-            // throw new Exception('My first Sentry error! '.$exception);
-            // report(new TelegramBotApiException($exception->getMessage())); // не выводит только в лог
-            report($exception);
+        } catch (Throwable $e) {
+            report(new TelegramBotApiException($e->getMessage())); // только в лог
             return false;
         }
 
