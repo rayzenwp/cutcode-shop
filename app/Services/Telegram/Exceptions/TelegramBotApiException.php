@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 final class TelegramBotApiException extends \Exception
 {
-    // public function report(Request $request)
+    // public function report(Request $request): bool|null
     // {
-    //     return response();
+    //     return true;
        
     // }
 

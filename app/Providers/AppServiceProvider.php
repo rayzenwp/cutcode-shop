@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Faker\FakerImageProvider;
 use Carbon\CarbonInterval;
+use Faker\Factory;
+use Faker\Generator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +18,12 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        //
+        $this->app->singleton(Generator::class, function () {
+            $faker = Factory::create();
+            //need for custom provider
+            $faker->addProvider(new FakerImageProvider($faker));
+            return $faker;
+        });
     }
 
     public function boot(): void
@@ -23,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         //!app()->runningInConsole
         Model::shouldBeStrict(!app()->isProduction());
 
-        if (!app()->isProduction()) {
+        if (app()->isProduction()) {
             DB::whenQueryingForLongerThan(
                 CarbonInterval::seconds(5), 
                 function (Connection $connection, QueryExecuted $event) {
