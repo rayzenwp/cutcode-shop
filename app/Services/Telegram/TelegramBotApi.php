@@ -28,7 +28,7 @@ final class TelegramBotApi
             return $status;
 
         } catch (Throwable $e) {
-            report(new TelegramBotApiException($e->getMessage())); // только в лог
+            report(new TelegramBotApiException($e->getMessage())); // в лог отправляется но не отображается пользователю
             return false;
         }
 
