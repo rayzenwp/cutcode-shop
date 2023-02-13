@@ -25,10 +25,10 @@ class ProductFactory extends Factory
         return [
             'title' => ucfirst($this->faker->words(2, true)),
             'brand_id' => Brand::query()->inRandomOrder()->value('id'),
-            // 'thumbnail' => '',
+            'thumbnail' => '',
 
             //через обычный фейкер имейдж работает если заранее сделать папку и без вложеной папки
-            'thumbnail' => $this->faker->image(Storage::path('products'), 640, 480, 'technics'),
+            //'thumbnail' => $this->faker->image(Storage::path('images/products'), 640, 480, 'technics'),
 
             // кастомный провайдер фейкера ютуб урок
             // 'thumbnail' => $this->faker->loremflickr('products'),
