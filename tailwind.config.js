@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./resources/views/*.blade.php"], //указывает где используются классы таилвинда
+  content: ["./resources/**/*.blade.php"], //указывает где используются классы таилвинда
   darkMode: 'media',
   theme: {
     screens: { //размерная сетка сайта, переопределена с учетом дизайна

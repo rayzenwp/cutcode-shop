@@ -6,6 +6,7 @@ use Faker\Provider\Base;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+// move to Support
 final class FakerImageProvider extends Base
 {
     public function loremflickr(string $dir = '', int $width = 500, int $height = 500): string
@@ -20,6 +21,19 @@ final class FakerImageProvider extends Base
         return '/storage/'.$name;
     }
       
+    public function fixturesImage(string $fixturesDir, string $storageDir): string
+    {
+        if(!Storage::exists($storageDir)) {
+            Storage::makeDirectory($storageDir);
+        }
+        //возможно это директорию нужно создать при рефреше что бы всегда точно была
+        $file = $this->generator->file(
+            base_path("tests/Fixtures/images/$fixturesDir"),
+            Storage::path($storageDir),
+            false
+        );
 
+        return '/storage/'.trim($storageDir, '/').'/'.$file;
+    }
     
 }
