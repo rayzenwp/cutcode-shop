@@ -6,6 +6,7 @@ use Faker\Provider\Base;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+// move to Support
 final class FakerImageProvider extends Base
 {
     public function loremflickr(string $dir = '', int $width = 500, int $height = 500): string
