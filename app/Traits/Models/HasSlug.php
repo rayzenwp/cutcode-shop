@@ -4,22 +4,19 @@ namespace App\Traits\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+// NOTE: good solution too https://github.com/spatie/laravel-sluggable
 trait HasSlug
 {
     protected static function bootHasSlug(): void
     {
         static::creating(function (Model $item) {
             $item->makeSlug();
-            // $item->slug = $item->slug 
-            // ?? str($item->{self::slugFrom()})
-            //     ->append(time())
-            //     ->slug();
         });
     }
 
     protected function makeSlug(): void
     {
-        if (!$this->{$this->slugColumn()}) { // если нет колонки или именно слага у обьекта?
+        if (!$this->{$this->slugColumn()}) { // если нет слага у обьекта
             $slug = $this->slugUnique(  // проверяем есть ли такой слаг который ниже сгенерировали
                 str($this->{$this->slugFrom()})->slug()->value() // генерируем сам слаг из нужного поля
             );
@@ -44,7 +41,6 @@ trait HasSlug
 
         while ($this->isSlugExists($slug)) {
             $i++;
-
             $slug = $originalSlug.'-'.$i;
         }
 
