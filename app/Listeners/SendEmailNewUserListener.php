@@ -11,6 +11,7 @@ class SendEmailNewUserListener
 {
     public function handle(Registered $event)
     {
+        // TOOD: read more about Notifications
         $event->user->notify(new NewUserNotification());
     }
 }

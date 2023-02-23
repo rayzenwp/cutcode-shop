@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\DomainServiceProvider;
 use App\Providers\TestingServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
@@ -83,7 +84,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------
@@ -191,7 +192,6 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
@@ -199,6 +199,7 @@ return [
 
         App\Providers\ViewServiceProvider::class,
         TestingServiceProvider::class,
+        DomainServiceProvider::class,
 
     ],
 
