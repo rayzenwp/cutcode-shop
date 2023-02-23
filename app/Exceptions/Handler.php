@@ -59,5 +59,10 @@ class Handler extends ExceptionHandler
         //    return response()
         //         ->view('welcome');
         // });
+
+        $this->renderable(function (\DomainException $exception) {
+            flash()->alert($exception->getMessage());
+            return back();
+        });
     }
 }
