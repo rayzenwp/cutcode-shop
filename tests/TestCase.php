@@ -16,7 +16,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         Notification::fake();
-        Storage::fake('images');
+        //Storage::fake('images');
         
         Http::preventStrayRequests();
     }

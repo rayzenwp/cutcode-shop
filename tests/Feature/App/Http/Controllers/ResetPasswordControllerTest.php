@@ -13,7 +13,7 @@ use Tests\TestCase;
 class ResetPasswordControllerTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     private string $token;
 
     private User $user;
@@ -22,7 +22,6 @@ class ResetPasswordControllerTest extends TestCase
     {
         parent::setUp();
 
-        //NOTE: фабрику можно и так писать
         $this->user = UserFactory::new()->create();
         $this->token = Password::createToken($this->user);
     }
@@ -42,14 +41,14 @@ class ResetPasswordControllerTest extends TestCase
      * @test
      * @return void
      */
-    public function it_handle_success(): void
+    public function it_handle(): void
     {
         $password = '1234567890';
         $password_confirmation = '1234567890';
 
         Password::shouldReceive('reset')
             ->once()
-            ->withSomeOfArgs([
+            ->withSomeofArgs([
                 'email' => $this->user->email,
                 'password' => $password,
                 'password_confirmation' => $password_confirmation,

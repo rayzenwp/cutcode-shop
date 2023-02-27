@@ -19,6 +19,7 @@ final class RegisterNewUserAction implements RegisterNewUserContract
 
         event(new Registered($user));
 
+        // TODo: это не должно быть здесь, должно в контроллере
         auth()->login($user);
     }
 }

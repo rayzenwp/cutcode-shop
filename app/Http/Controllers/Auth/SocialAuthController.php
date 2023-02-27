@@ -41,10 +41,10 @@ class SocialAuthController extends Controller
          //TODO если есть созданный не через гитхаб пользователь, то Duplicate entry
           
         $user = User::query()->updateOrCreate([
-            $driver.'_id' => $githubUser->id,
+            $driver.'_id' => $githubUser->getId(),
         ], [
-            'name' => $githubUser->name ?? $githubUser->nickname,
-            'email' => $githubUser->email,
+            'name' => $githubUser->getName() ?? $githubUser->getNickname(),
+            'email' => $githubUser->getEmail(),
             'password' => bcrypt(str()->random(20)),
             // 'github_token' => $githubUser->token,
             // 'github_refresh_token' => $githubUser->refreshToken,

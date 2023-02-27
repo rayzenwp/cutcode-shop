@@ -35,6 +35,8 @@ class ProductFactory extends Factory
 
             // с курса 
             'thumbnail' => $this->faker->fixturesImage('products', 'images/products'),
+            'on_home_page' => $this->faker->boolean(),
+            'sorting' => $this->faker->numberBetween(1, 999)
             
         ];
     }

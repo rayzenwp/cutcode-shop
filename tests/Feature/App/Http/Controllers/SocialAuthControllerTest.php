@@ -14,7 +14,7 @@ use App\Http\Controllers\Auth\SocialAuthController;
 class SocialAuthControllerTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     private function mockSocialiteCallback(string|int $githubId): MockInterface
     {
         $user = $this->mock(SocialiteUser::class, function (MockInterface $m) use($githubId) {
@@ -28,10 +28,10 @@ class SocialAuthControllerTest extends TestCase
 
             $m->shouldReceive('getEmail')
                 ->once()
-                ->andReturn('sxdev@gmail.com');
+                ->andReturn('testing@cutcode.ru');
         });
 
-        Socialite::shouldReceive("driver->user")
+        Socialite::shouldReceive('driver->user')
             ->once()
             ->andReturn($user);
 
@@ -79,14 +79,16 @@ class SocialAuthControllerTest extends TestCase
                 )
             );
 
-        $this->withoutExceptionHandling()
+        $this
+            ->withoutExceptionHandling()
             ->get(
                 action(
                     [SocialAuthController::class, 'callback'],
-                    ['driver', 'vk']
+                    ['driver' => 'vk']
                 )
             );
     }
+
 
     /**
      * @test
@@ -130,9 +132,11 @@ class SocialAuthControllerTest extends TestCase
 
         $this->mockSocialiteCallback($githubId);
 
-        $this->callbackRequest()->assertRedirect(route('home'));
+        $this->callbackRequest()
+            ->assertRedirect(route('home'));
 
         $this->assertAuthenticated();
     }
+
 
 }

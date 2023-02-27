@@ -15,21 +15,19 @@
 
     </head>
     <body>
-        @if ($message = flash()->get())
-        <div class="{{ $message->class() }} py-5">
-         {{ $message->message()}}
-        </div>
-     @endif
+        @include('shared.flash')
+
+        @include('shared.header')
+
         <main class="py-16 lg:py-20">
             <div class="container">
-                <!-- Page heading -->
-                <div class="text-center">
-                    <a href="{{route('home')}}" class="inline-block" rel="home">
-                        <img src="{{Vite::image('logo.svg')}}" class="w-[148px] md:w-[201px] h-[36px] md:h-[50px]" alt="CutCode">
-                    </a>
-                </div>
+                @yield('content')
             </div>
         </main>
-        @yield('content')
+        
+        @include('shared.footer')
+
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
     </body>
 </html>

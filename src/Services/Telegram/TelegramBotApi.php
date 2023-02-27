@@ -10,9 +10,17 @@ use Throwable;
 
 // Better use SDK library if need more request to api
 // нужно добавить очередь на Http request
-final class TelegramBotApi
+class TelegramBotApi implements TelegramBotApiContract
 {
     public const HOST = 'https://api.telegram.org/bot';
+
+    public static function fake(): TelegramBotApiFake
+    {
+        return app()->instance(
+            TelegramBotApiContract::class,
+            new TelegramBotApiFake()
+        );
+    }
 
     public static function sendMessage(string $token, int $chatId, string $text): bool
     {
