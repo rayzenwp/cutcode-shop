@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Observers\BrandObserver;
 use Carbon\CarbonInterval;
+use Domain\Catalog\Models\Brand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        Brand::observe(BrandObserver::class);
+        
         //!app()->runningInConsole
         Model::shouldBeStrict(!app()->isProduction());
 

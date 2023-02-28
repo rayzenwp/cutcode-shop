@@ -2,15 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Brand;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Product;
+use Domain\Catalog\Models\Brand;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
- */
 class ProductFactory extends Factory
 {
+    protected $model = Product::class;
     /**
      * Define the model's default state.
      *
@@ -25,7 +24,7 @@ class ProductFactory extends Factory
         return [
             'title' => ucfirst($this->faker->words(2, true)),
             'brand_id' => Brand::query()->inRandomOrder()->value('id'),
-            'price' => $this->faker->numberBetween(1000 - 100000),
+            'price' => $this->faker->numberBetween(1000, 1000000),
 
             //через обычный фейкер имейдж работает если заранее сделать папку и без вложеной папки
             //'thumbnail' => $this->faker->image(Storage::path('images/products'), 640, 480, 'technics'),

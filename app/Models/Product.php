@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Traits\Models\HasSlug;
-use App\Traits\Models\HasThumbnail;
+use Support\Traits\Models\HasSlug;
+use Domain\Catalog\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Support\Traits\Models\HasThumbnail;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Support\Casts\PriceCast;
 
 class Product extends Model
 {
@@ -24,6 +26,11 @@ class Product extends Model
         'thumbnail',
         'on_home_page',
         'sorting'
+    ];
+
+    //do it test
+    protected $casts = [
+        'price' => PriceCast::class
     ];
 
     protected function thumbnailDir(): string

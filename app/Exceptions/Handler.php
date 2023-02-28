@@ -44,8 +44,10 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        //if app is production
         $this->reportable(function (Throwable $e) {
-            if (app()->bound('sentry')) {
+
+            if (app()->bound('sentry') && app()->isProduction()) {
                 app('sentry')->captureException($e);
             }
             //Comm: тут можно перехватывать абсолютно все ошибки и отправлять куда нужно

@@ -3,9 +3,9 @@
 namespace Domain\Auth\Providers;
 
 // use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as IlluminateAuthServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
+class AuthServiceProvider extends IlluminateAuthServiceProvider
 {
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',

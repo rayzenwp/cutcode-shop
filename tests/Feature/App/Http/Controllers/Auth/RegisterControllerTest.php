@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Feature\App\Http\Controllers;
+namespace Tests\Feature\App\Http\Controllers\Auth;
 
 use Tests\TestCase;
 use Domain\Auth\Models\User;

@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use App\Contracts\RouteRegistrar;
-use App\Routing\AppRegistrar;
-use Domain\Auth\Routing\AuthRegistrar;
-use Illuminate\Contracts\Routing\Registrar;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
+use App\Routing\AppRegistrar;
+use App\Routing\AuthRegistrar;
+use App\Contracts\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\Routing\Registrar;
+use Illuminate\Support\Facades\RateLimiter;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
